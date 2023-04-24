@@ -12,15 +12,14 @@ public class Tests : TestBase
         // Navigate to the Newegg website
         LandingPage.Open();
 
-        // Type Keychron Q2 into the search bar + press enter
+        // Type Keychron K2 into the search bar + press enter
         LandingPage.SearchItem(ItemToSearch);
 
-        // Check that the search results contain Keychron
+        // Check that the search results contain Keychron K2
         var isSearchResultsContainSearchedItemName = SearchResultsPage.IsAnyResultItemsContainTextInName(ItemToSearch);
-        Assert.IsTrue(isSearchResultsContainSearchedItemName, "Some search items didn't contain the searched item name.");
+        Assert.IsTrue(isSearchResultsContainSearchedItemName, "Search didn't yield any results similar to the searched one.");
     }
 
-    // unfinished / in process 
     [Test]
     public void AddingItemToCart()
     {
@@ -31,11 +30,17 @@ public class Tests : TestBase
         LandingPage.SearchItem(ItemToSearch);
 
         // Click on the first item in the search results
+        SearchResultsPage.ClickFirstItemInSearchResults(ItemToSearch);
 
         // Click on the Add to CartPage button
+        ProductPage.ClickAddToCartButton();
 
         // Refuse the warranty
+        ProductPage.RefuseWarranty();
 
         // Check that the item was added to the cart
+        CartPage.Open();
+        var isItemAddedToCart = CartPage.IsItemAddedToCart(ItemToSearch);
+        Assert.IsTrue(isItemAddedToCart, $"The item {ItemToSearch} was not added to the cart.");
     }
 }

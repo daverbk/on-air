@@ -6,13 +6,8 @@ public class LandingPage : PageBase
 {
     private IWebElement SearchTextBox => Driver.FindElement(By.XPath("//input[@type = 'search']"));
 
-    public LandingPage(IWebDriver driver) : base(driver)
+    public LandingPage(IWebDriver driver, string url) : base(driver, url)
     { }
-
-    public void Open()
-    {
-        Driver.Navigate().GoToUrl("https://www.newegg.com/");
-    }
 
     public void SearchItem(string itemName)
     {
